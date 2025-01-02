@@ -4,7 +4,7 @@ import { app } from "../firebase";
 import fetchUserProfile from "./UserService";
 import UserPendingStatus from "./UserPendingStatus";
 import ApprovedProfile from "./ApprovedProfile";
-import DataCollectForm from "./dataCollectForm";
+import DataCollectForm from "./DataCollectForm";
 import { doc, getFirestore, onSnapshot } from "firebase/firestore";
 import AccountStatus from "./Deleted";
 

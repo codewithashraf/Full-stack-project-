@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
@@ -13,12 +12,12 @@ import Signup from './components/Signup.jsx';
 import Profile from './components/Profile.jsx';
 import Notification from './components/Notification.jsx';
 import UploadPdfs from './components/UploadPdfs.jsx';
-import DisplayPDFs from './components/PracticsComponent.jsx';
 import AllMaterials from './components/AllMaterials.jsx';
 import CreateTest from './components/CreateTest.jsx';
 import CreatedTests from './components/CreatedTest.jsx';
 import UpdateTest from './components/UpdateTest.jsx';
 import TestSubmissions from './components/TestSubmissions.jsx';
+import Home from './components/Home.jsx';
 
 function MainApp() {
   // const [userId, setUserId] = useState(null);
@@ -34,6 +33,10 @@ function MainApp() {
   
 
   const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Home />,
+    },
     {
       path: '/signup',
       element: <Signup />,
