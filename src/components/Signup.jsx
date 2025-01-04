@@ -1,64 +1,67 @@
-import React, { useEffect, useState } from 'react'
-import {app} from '../firebase'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
-import { useNavigate } from 'react-router-dom'
-import { getFirestore, setDoc, doc } from 'firebase/firestore'
-
-
+import React, { useEffect, useState } from "react";
+import { app } from "../firebase";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { getFirestore, setDoc, doc } from "firebase/firestore";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const Signup = () => {
-  const [name, setName] = useState('')
-  const [phoneNumber, setPhoneNumber] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
-  
-  const navigate = useNavigate()
+  const [name, setName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [hidepass, setHidePass] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSignup = (e) => {
-    e.preventDefault()
-    const auth = getAuth(app)
+    e.preventDefault();
+    const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password)
-    .then(userData => {
-      console.log(userData.user.uid)
-      const idName = name.trim().split(' ').join('')
-      console.log(idName)
+      .then((userData) => {
+        console.log(userData.user.uid);
+        const idName = name.trim().split(" ").join("");
+        console.log(idName);
 
-      // save data from firestore database
-      const db = getFirestore(app)
-      const fireStoreRef = doc(db, `users`, userData.user.uid)
-      const sendData = setDoc(fireStoreRef, {
-        userName: name,
-        userPhoneNumber: phoneNumber,
-        userEmail: email,
-        password: password,
-        userUid: userData.user.uid,
-        status: 'submitting',
+        // save data from firestore database
+        const db = getFirestore(app);
+        const fireStoreRef = doc(db, `users`, userData.user.uid);
+        const sendData = setDoc(fireStoreRef, {
+          userName: name,
+          userPhoneNumber: phoneNumber,
+          userEmail: email,
+          password: password,
+          userUid: userData.user.uid,
+          status: "submitting",
+        });
+
+        // navigate into login form
+        navigate("/login", {
+          state: { email, password, userId: userData.user.uid },
+        });
       })
-      
-
-      // navigate into login form
-      navigate('/login', {state: {email, password, userId: userData.user.uid}})
-    })
-    .catch(err => {
-      setError(err)
-      console.log(error)
-    })
-  }
+      .catch((err) => {
+        setError(err);
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
-    sessionStorage.clear()
-  }, [])
-
-
+    sessionStorage.clear();
+  }, []);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen px-4 flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="relative bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-8 max-w-md w-full">
-        <h2 className="text-3xl font-extrabold text-white text-center mb-6 tracking-wider">Sign-Up</h2>
+        <h2 className="text-3xl font-extrabold text-white text-center mb-6 tracking-wider">
+          Sign-Up
+        </h2>
         <form onSubmit={handleSignup} className="space-y-6">
-        <div>
-            <label htmlFor="name" className="block text-gray-300 text-sm mb-1">Full Name</label>
+          <div>
+            <label htmlFor="name" className="block text-gray-300 text-sm mb-1">
+              Full Name
+            </label>
             <input
               type="text"
               id="name"
@@ -70,7 +73,12 @@ const Signup = () => {
           </div>
 
           <div>
-            <label htmlFor="number" className="block text-gray-300 text-sm mb-1">Phone Number</label>
+            <label
+              htmlFor="number"
+              className="block text-gray-300 text-sm mb-1"
+            >
+              Phone Number
+            </label>
             <input
               type="number"
               id="number"
@@ -82,7 +90,9 @@ const Signup = () => {
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-gray-300 text-sm mb-1">Email</label>
+            <label htmlFor="email" className="block text-gray-300 text-sm mb-1">
+              Email
+            </label>
             <input
               type="email"
               id="email"
@@ -92,18 +102,38 @@ const Signup = () => {
               className="w-full px-4 py-2 bg-white/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm"
             />
           </div>
-          <div>
-            <label htmlFor="password" className="block text-gray-300 text-sm mb-1">Password</label>
+          <div className="relative">
+            <label
+              htmlFor="password"
+              className="block text-gray-300 text-sm mb-1"
+            >
+              Password
+            </label>
             <input
-              type="password"
+              type={hidepass ? 'text' : 'password'}
               id="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-2 bg-white/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm"
             />
+            {hidepass ? (
+              <FiEyeOff
+                className="absolute bottom-3 cursor-pointer text-blue-900 right-3"
+                onClick={() => setHidePass(false)}
+              />
+            ) : (
+              <FiEye
+                className="absolute bottom-3 cursor-pointer text-blue-900 right-3"
+                onClick={() => setHidePass(true)}
+              />
+            )}
           </div>
-          {error && <p className="text-red-500 text-sm text-center">please enter a valid email{error.message}</p>}
+          {error && (
+            <p className="text-red-500 text-sm text-center">
+              please enter a valid email{error.message}
+            </p>
+          )}
           <button
             type="submit"
             className="w-full py-2 bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold rounded-lg shadow-lg hover:opacity-90 transform transition-transform hover:scale-105 duration-300"
@@ -115,6 +145,6 @@ const Signup = () => {
       </div>
     </div>
   );
-}
+};
 
-export default Signup
+export default Signup;

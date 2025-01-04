@@ -110,7 +110,7 @@ function MainApp() {
     {
       path: '*',
       element: <h1 className='flex items-center justify-center text-4xl h-screen'>404 | page not found</h1>
-    }
+    },
   ]);
 
   return <RouterProvider router={router} />;

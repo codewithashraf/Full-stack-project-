@@ -10,22 +10,22 @@ const Home = () => {
         <h1 className="text-3xl font-bold text-purple-700">
           LearnSmart Academy
         </h1>
-        <nav className="space-x-6">
-          <a href="#home" className="text-gray-700 hover:text-purple-600">
+        <nav className="space-x-6 hidden md:block">
+          <a href="#home" className="text-gray-900 font-bold hover:underline hover:text-purple-600">
             Home
           </a>
-          <a href="#about" className="text-gray-700 hover:text-purple-600">
+          <a href="#about" className="text-gray-900 font-bold hover:underline hover:text-purple-600">
             About
           </a>
-          <a href="#contact" className="text-gray-700 hover:text-purple-600">
+          <a href="#contact" className="text-gray-900 font-bold hover:underline hover:text-purple-600">
             Contact Us
           </a>
         </nav>
-        <div className="space-x-4">
-          <button className="px-5 py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600">
+        <div className="space-x-4 flex">
+          <button className=" px-3 py-1 lg:px-5 lg:py-2 bg-purple-500 text-white rounded-md hover:bg-purple-600">
             <Link to={"/login"}>Login</Link>
           </button>
-          <button className="px-5 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+          <button className="hidden sm:block px-3 py-1 lg:px-5 lg:py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
             <Link to={"/signup"}>Signup</Link>
           </button>
         </div>
@@ -38,22 +38,22 @@ const Home = () => {
             Welcome to{" "}
             <span className="text-purple-600">LearnSmart Academy</span>
           </h2>
-          <p className="text-gray-600 text-lg max-w-lg">
+          <p className="text-black text-lg max-w-lg">
             Empowering students with personalized learning experiences and
             interactive sessions designed to boost knowledge and confidence.
           </p>
-          <div className="mt-8 flex space-x-4">
-            <button className="px-8 py-3 bg-purple-500 text-white text-lg rounded-lg shadow-lg hover:bg-purple-600">
-              Explore Courses
+          <div className="mt-8 flex max-md:justify-center space-x-4">
+            <button className="px-3 py-2 sm:px-4 sm:py-2  bg-purple-500 font-semibold text-white text-sm sm:text-lg rounded-xl shadow-lg hover:bg-purple-600">
+              Register now
             </button>
-            <button className="px-8 py-3 bg-blue-500 text-white text-lg rounded-lg shadow-lg hover:bg-blue-600">
+            <button className="px-3 py-2 sm:px-4 sm:py-2 bg-blue-500 font-semibold text-white text-sm sm:text-lg rounded-lg shadow-lg hover:bg-blue-600">
               Contact Us
             </button>
           </div>
         </section>
         <section className="flex-1 mt-8 md:mt-0">
           <img
-            src="/images/man.png"
+            src="/images/learning.png"
             alt="Learning Platform Illustration"
             className=" max-w-full h-auto"
           />

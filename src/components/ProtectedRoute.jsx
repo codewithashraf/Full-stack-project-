@@ -3,10 +3,10 @@ import { Navigate, useParams } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
   const { userId } = useParams()
-  console.log(userId)
+  
   const isLoggedIn = sessionStorage.getItem('sir_logged_in');
   const userLoggedIn = sessionStorage.getItem('userId');
-  console.log(userId)
+
   if(isLoggedIn){
     return  children
   }

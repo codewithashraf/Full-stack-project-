@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { app } from "../firebase";
 
 const Login = () => {
-  sessionStorage.clear()
+  sessionStorage.clear();
   const { state } = useLocation();
-  
+
+  const [hidepass, setHidePass] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  console.log(state)
+  console.log(state);
   useEffect(() => {
-    if(state){
+    if (state) {
       const autoFill = window.confirm(
         "aap ka email or password auto fill karna hai!"
       );
@@ -34,10 +36,10 @@ const Login = () => {
         const userEmail = userData.user.email;
         const localId = userData.user.reloadUserInfo.localId;
         if (email === userEmail && localId === "LiY1SSj3FiZUWKY58Na322uVTcY2") {
-          sessionStorage.setItem("sir_logged_in", 'yes');
+          sessionStorage.setItem("sir_logged_in", "yes");
           navigate("/dashboard");
         } else {
-          sessionStorage.setItem('userId', localId)
+          sessionStorage.setItem("userId", localId);
           navigate(`/profile/${localId}`);
         }
       })
@@ -48,7 +50,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+    <div className="min-h-screen px-4 flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
       <div className="relative bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl shadow-2xl p-8 max-w-md w-full">
         <h2 className="text-3xl font-extrabold text-white text-center mb-6 tracking-wider">
           Login
@@ -67,7 +69,7 @@ const Login = () => {
               className="w-full px-4 py-2 bg-white/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm"
             />
           </div>
-          <div>
+          <div className="relative">
             <label
               htmlFor="password"
               className="block text-gray-300 text-sm mb-1"
@@ -75,13 +77,22 @@ const Login = () => {
               Password
             </label>
             <input
-              type="password"
+              type={hidepass ? "text" : "password"}
               id="password"
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 bg-white/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm"
+              className="w-full px-4 py-2 bg-white/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm "
             />
+            {hidepass ? (
+              <FiEyeOff className="absolute bottom-3 cursor-pointer text-blue-900 right-3"
+                onClick={() => setHidePass(false)}
+              />
+            ) : (
+              <FiEye className="absolute bottom-3 cursor-pointer text-blue-900 right-3" 
+                onClick={() => setHidePass(true)}
+              />
+            )}
           </div>
           {error && <p className="text-red-500 text-sm text-center">{error}</p>}
           <button
