@@ -44,7 +44,7 @@ const TestSubmissions = () => {
   }
 
   return (
-    <div className="p-4 ml-[40%]">
+    <div className="p-4 ml-[0%] bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
       <h1 className="text-xl  font-bold mb-4">Test Submissions</h1>
 
       {/* Grade Selector */}
@@ -59,7 +59,7 @@ const TestSubmissions = () => {
             setGrade(e.target.value)
             handleGrade(e.target.value)
           }}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded"
+          className="mt-1 block w-full p-2 bg-gray-800 border border-gray-300 rounded"
         >
           <option value=''>All Submissions</option>
           <option value="Grade-9">Grade 9</option>

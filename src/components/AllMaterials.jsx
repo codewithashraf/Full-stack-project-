@@ -113,9 +113,9 @@ const AllMaterials = () => {
   
   console.log(grade);
   return (
-    <div className="min-h-screen w-full ml-[20%] flex items-center justify-center">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+    <div className="min-h-screen w-full text-white bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg rounded-xl flex items-center justify-center">
+      <div className=" shadow-md rounded-lg p-8 max-w-md w-full">
+        <h1 className="text-2xl sm:text-4xl font-bold text-indigo-100 text-center mb-6">
           All Learning Materials
         </h1>
 
@@ -123,13 +123,13 @@ const AllMaterials = () => {
         <div className="mb-4">
           <label
             htmlFor="gradeSelect"
-            className="block text-sm font-medium text-gray-600 mb-2"
+            className="block text-sm font-medium text-gray-100 mb-2"
           >
             Select Grade
           </label>
           <select
             id="gradeSelect"
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+            className="block w-full text-sm py-1 px-1 text-gray-100 bg-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
             onChange={(e) => setGrade(e.target.value)}
           >
             <option value="">All Grades</option>
@@ -148,17 +148,17 @@ const AllMaterials = () => {
             filteredMaterials.map((material) => (
               <div
                 key={material.fileUrl}
-                className="flex items-center justify-between border-b py-2"
+                className="flex items-center  justify-between border-b py-2"
               >
                 <div>
-                  <p className="text-sm font-medium text-gray-800">
+                  <p className="text-sm font-medium text-gray-100">
                     {material.fileName}
                   </p>
                   <a
                     href={material.fileUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline text-sm"
+                    className="text-gray-300 p-1 rounded-lg bg-opacity-10 bg-white hover:underline text-sm"
                   >
                     View PDF
                   </a>

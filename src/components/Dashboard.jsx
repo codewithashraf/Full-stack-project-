@@ -96,6 +96,15 @@ export default function Dashboard() {
           </li>
           <li>
             <Link
+              to="/dashboard/CreatedTests"
+              className="flex items-center md:text-lg text-sm space-x-2 text-white hover:text-blue-400 cursor-pointer"
+            >
+              <FiClipboard />
+              {!isSidebarCollapsed && <span>Created Tests</span>}
+            </Link>
+          </li>
+          <li>
+            <Link
               to="/dashboard/TestSubmissions"
               className="flex items-center md:text-lg text-sm space-x-2 text-white hover:text-blue-400 cursor-pointer"
             >
@@ -124,7 +133,7 @@ export default function Dashboard() {
 
       {/* Main Content */}
       <div
-        className={`flex-1 p-6 bg-gradient-to-br from-gray-900 to-indigo-800 transition-margin duration-300 max-md:ml-0 ${
+        className={`flex-1 p-0 bg-gradient-to-br from-gray-900 to-blue-800 transition-margin duration-300 max-md:ml-0 ${
           isSidebarCollapsed ? "ml-[60px]" : "ml-[20%]"
         }`}
       >

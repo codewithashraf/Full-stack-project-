@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
@@ -28,16 +28,9 @@ const Notification = () => {
     setSelectedNotification(key);
   };
 
-  let a = []
-
-  // const handleApproved = (e) => {
-  //   e.stopPropagation()
-  //   navigate('/dashboard/AddStudent')
-  // }
-
   return (
     <div
-      className="ml-[20%] h-screen w-full flex flex-col items-center gap-4 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white"
+      className=" h-screen w-full flex flex-col items-center gap-4 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white"
       onClick={(e) => {
         setSelectedNotification(null);
       }}

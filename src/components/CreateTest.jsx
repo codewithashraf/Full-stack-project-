@@ -81,7 +81,7 @@ const CreateTest = () => {
   };
 
   return (
-    <div className="min-h-screen h-[fit-content] w-full ml-[20%] p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 ">
+    <div className="min-h-screen h-[fit-content] w-full p-6 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 ">
       <h1 className="text-3xl font-bold text-indigo-100 mb-6 text-center">
         Create Test
       </h1>
@@ -94,7 +94,7 @@ const CreateTest = () => {
           <select
             value={grade}
             onChange={(e) => setGrade(e.target.value)}
-            className="w-full px-4 py-3 bg-white/20 text-white placeholder-indigo-100 rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
+            className="w-full px-4 py-2 sm:py-3 bg-white/20 text-white placeholder-indigo-100 rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
           >
             <option value="" hidden className="bg-gray-800 text-white">
               Select Grade
@@ -123,7 +123,7 @@ const CreateTest = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             placeholder="e.g. Maths, Physics, Chemistry"
-            className="w-full px-4 py-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
+            className="w-full px-4 py-2 sm:py-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
           />
         </div>
       </div>
@@ -137,7 +137,7 @@ const CreateTest = () => {
           value={currentQuestion}
           onChange={(e) => setCurrentQuestion(e.target.value)}
           placeholder="Enter your question here"
-          className="w-full px-4 py-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
+          className="w-full px-4 sm:py-3 py-2 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
         />
       </div>
 
@@ -154,7 +154,7 @@ const CreateTest = () => {
               )
             }
             placeholder={`Option ${index + 1}`}
-            className="w-full px-4 py-3 mb-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
+            className="w-full px-4 py-2 sm:py-3 mb-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
           />
         ))}
       </div>
@@ -168,26 +168,26 @@ const CreateTest = () => {
           value={correctAnswer}
           onChange={(e) => setCorrectAnswer(e.target.value)}
           placeholder="Enter the correct answer"
-          className="w-full px-4 py-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
+          className="w-full px-4 py-2 sm:py-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none shadow-lg"
         />
       </div>
 
       <div className="flex justify-between mt-8">
         <button
           onClick={handleBack}
-          className="px-5 py-3 bg-black text-white font-medium rounded-lg shadow-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          className="sm:px-5 sm:py-3 px-3 py-1 bg-black text-white font-medium rounded-lg shadow-md hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
         >
           Back
         </button>
         <button
           onClick={handleAddOrUpdateQuestion}
-          className="px-5 py-3 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="sm:px-5 sm:py-3 px-3 py-1 bg-blue-500 text-white font-medium rounded-lg shadow-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-400"
         >
           Next
         </button>
         <button
           onClick={handleSubmit}
-          className="px-5 py-3 bg-gray-700 text-white font-medium rounded-lg shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
+          className="sm:px-5 sm:py-3 px-3 py-1 bg-gray-700 text-white font-medium rounded-lg shadow-md hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500"
         >
           Submit
         </button>

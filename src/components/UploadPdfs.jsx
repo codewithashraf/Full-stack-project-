@@ -74,22 +74,22 @@ const UploadPdfs = () => {
   };
 
   return (
-    <div className="min-h-screen w-full ml-[20%] flex items-center justify-center">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg flex ">
+      <div className=" shadow-md rounded-lg p-8 max-w-md w-full">
+        <h1 className="text-2xl font-semibold text-gray-100 text-center mb-6">
           Upload Learning Material
         </h1>
         <div className="mb-4">
           <label
             htmlFor="fileInput"
-            className="block text-sm font-medium text-gray-600 mb-2"
+            className="block text-sm font-medium text-gray-100 mb-2"
           >
             Select PDF File
           </label>
           <input
             type="file"
             id="fileInput"
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+            className="block w-full text-sm p-1 bg-gray-900 border border-gray-100 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
             accept=".pdf"
             onChange={handleFileChange}
           />
@@ -98,14 +98,14 @@ const UploadPdfs = () => {
         <div className="mb-4">
           <label
             htmlFor="fileNameInput"
-            className="block text-sm font-medium text-gray-600 mb-2"
+            className="block text-sm font-medium text-gray-100 mb-2"
           >
             Enter PDF Name
           </label>
           <input
             type="text"
             id="fileNameInput"
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg"
+            className="block w-full text-sm p-1 bg-gray-800 border border-gray-300 rounded-lg"
             placeholder="e.g., Math Book, Physics Book"
             onChange={handleFileNameChange}
             value={fileName}
@@ -115,13 +115,13 @@ const UploadPdfs = () => {
         <div className="mb-4">
           <label
             htmlFor="gradeSelect"
-            className="block text-sm font-medium text-gray-600 mb-2"
+            className="block text-sm font-medium text-gray-100 mb-2"
           >
             Select Grade
           </label>
           <select
             id="gradeSelect"
-            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+            className="block w-full text-sm p-1 bg-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
             onChange={(e) => setGrade(e.target.value)}
           >
             <option hidden>Choose a Grade</option>

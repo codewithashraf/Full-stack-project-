@@ -55,7 +55,7 @@ const TestSection = ({ user }) => {
     console.log('chal rha hai')
     const unsubscribe = fetchTest();
     return () => unsubscribe();
-  }, [submittest]);
+  }, []);
 
   const handleAnswer = (questionIndex, answer, question) => {
     setAnswers((prev) => ({ ...prev, [questionIndex]: answer }));

@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { getDatabase, ref, onValue, remove, update } from "firebase/database";
+import  { useEffect, useState } from "react";
 import { app } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -17,15 +16,8 @@ function StudentList() {
   const navigate = useNavigate();
   const [studentData, setStudentData] = useState(null);
 
-  const db = getDatabase(app);
-
-  const fetchData = () => {
+  
     useEffect(() => {
-      const studentRef = ref(db, "approved-student");
-      const unsubscribeOnValue = onValue(studentRef, (snapShot) => {
-        console.log(snapShot.val());
-        // setStudentData(snapShot.val());
-      });
 
       // firestore say data fetch kar rhe hain
       const firestoreDb = getFirestore(app);
@@ -38,11 +30,11 @@ function StudentList() {
       });
 
       // clean up onvalue listener
-      return () => unsubscribeOnValue();
+      return () => unSubscribe();
     }, []);
-  };
+  
 
-  fetchData();
+  
 
   // Function to generate Cloudinary signature using crypto-js
   const generateSignature = (publicId) => {
@@ -100,7 +92,7 @@ function StudentList() {
   };
 
   return (
-    <div className="w-full h-[fit-content] min-h-[100vh] ml-[20%] p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
+    <div className="w-full h-[fit-content] min-h-[100vh] ml-[0%] p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
       <h1 className="text-4xl font-bold text-indigo-100 mb-8 text-center">
         Student List
       </h1>
