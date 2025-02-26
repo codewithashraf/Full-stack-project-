@@ -4,10 +4,10 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { getFirestore, setDoc, doc } from "firebase/firestore";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import SigninGoogle from "./SigninGoogle";
 
 const Signup = () => {
   const [name, setName] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -15,24 +15,19 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const handleSignup = (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     const auth = getAuth(app);
     createUserWithEmailAndPassword(auth, email, password)
       .then((userData) => {
-        console.log(userData.user.uid);
-        const idName = name.trim().split(" ").join("");
-        console.log(idName);
 
         // save data from firestore database
         const db = getFirestore(app);
         const fireStoreRef = doc(db, `users`, userData.user.uid);
         const sendData = setDoc(fireStoreRef, {
-          userName: name,
-          userPhoneNumber: phoneNumber,
-          userEmail: email,
-          password: password,
-          userUid: userData.user.uid,
+          userName: name.trim(),
+          userEmail: email.trim(),
+          userUid: userData.user.uid.trim(),
           status: "submitting",
         });
 
@@ -72,22 +67,6 @@ const Signup = () => {
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="number"
-              className="block text-gray-300 text-sm mb-1"
-            >
-              Phone Number
-            </label>
-            <input
-              type="number"
-              id="number"
-              placeholder="Enter your number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-              className="w-full px-4 py-2 bg-white/20 text-white placeholder-gray-400 rounded-lg focus:ring-2 focus:ring-indigo-400 outline-none shadow-sm"
-            />
-          </div>
 
           <div>
             <label htmlFor="email" className="block text-gray-300 text-sm mb-1">
@@ -141,6 +120,7 @@ const Signup = () => {
             SignUp
           </button>
         </form>
+        <SigninGoogle text='Sigin with Google' />
         <div className="absolute top-0 left-0 w-full h-full -z-10 bg-gradient-to-br from-purple-600/20 to-blue-500/20 rounded-2xl blur-2xl opacity-70"></div>
       </div>
     </div>

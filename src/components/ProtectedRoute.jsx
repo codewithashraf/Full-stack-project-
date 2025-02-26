@@ -2,10 +2,10 @@ import React from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 
 const ProtectedRoute = ({ children }) => {
-  const { userId } = useParams()
+  const { userId } = useParams();
   
   const isLoggedIn = sessionStorage.getItem('sir_logged_in');
-  const userLoggedIn = sessionStorage.getItem('userId');
+  const userLoggedIn = localStorage.getItem('userId' + userId);
 
   if(isLoggedIn){
     return  children

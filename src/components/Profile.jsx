@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import { app } from "../firebase";
+import { app, firestoreDb } from "../firebase";
 import fetchUserProfile from "./UserService";
 import UserPendingStatus from "./UserPendingStatus";
 import ApprovedProfile from "./ApprovedProfile";
 import DataCollectForm from "./DataCollectForm";
-import { doc, getFirestore, onSnapshot } from "firebase/firestore";
+import { doc, onSnapshot } from "firebase/firestore";
 import AccountStatus from "./Deleted";
+import { useParams } from "react-router-dom";
 
 const Profile = () => {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const auth = getAuth(app);
+  const { userId } = useParams();
 
-  const userId = sessionStorage.getItem('userId')
+  // const userId = sessionStorage.getItem('userId')
 
   const handleSaveProfile = (save) => {
     if (save) {
@@ -30,7 +32,24 @@ const Profile = () => {
   };
 
   useEffect(() => {
-    const unSubscribe = auth.onAuthStateChanged(async (currentUser) => {
+
+      const userRef = doc(firestoreDb, 'users', userId);
+  
+      const unSubscribe = onSnapshot(userRef, (doc) => {
+        if (doc.exists()) {
+          setUser(doc.data());
+          setStatus(doc.data().status); // Update the status in real-time
+        }
+      });
+    
+      return () => unSubscribe();
+    
+  }, []);
+
+
+
+    /* const unSubscribe = auth.onAuthStateChanged(async (currentUser) => {
+      console.log(currentUser.uid);
       if (currentUser) {
         let userData;
         if(currentUser.uid === userId) {
@@ -39,6 +58,7 @@ const Profile = () => {
         else{
           userData = await fetchUserProfile(userId);
         }
+
         setStatus(userData.status);
 
         const firestoreDb = getFirestore(app);
@@ -61,10 +81,11 @@ const Profile = () => {
 
         return () => unSubscribe();
       }
-    });
-
+    }); 
     return () => unSubscribe();
-  }, []);
+    */
+
+
 
   return (
     <>
@@ -95,7 +116,7 @@ const Profile = () => {
 
       {/* Conditional Rendering for Main Content */}
       {!user ? (
-        <h1 className="absolute top-[35%] left-[40%] text-[6vw] text-white ">
+        <h1 className="absolute top-[35%] left-[40%] text-[6vw] text-black ">
           Loading .............
         </h1>
       ) : status === "submitting" ? (

@@ -26,7 +26,7 @@ const Home = () => {
             <Link to={"/login"}>Login</Link>
           </button>
           <button className="hidden sm:block px-3 py-1 lg:px-5 lg:py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-            <Link to={"/signup"}>Signup</Link>
+            <Link to={"/signup"}>Register</Link>
           </button>
         </div>
       </header>
@@ -44,7 +44,7 @@ const Home = () => {
           </p>
           <div className="mt-8 flex max-md:justify-center space-x-4">
             <button className="px-3 py-2 sm:px-4 sm:py-2  bg-purple-500 font-semibold text-white text-sm sm:text-lg rounded-xl shadow-lg hover:bg-purple-600">
-              Register now
+              <Link to="/signup">Register now</Link>
             </button>
             <button className="px-3 py-2 sm:px-4 sm:py-2 bg-blue-500 font-semibold text-white text-sm sm:text-lg rounded-lg shadow-lg hover:bg-blue-600">
               Contact Us

@@ -6,7 +6,7 @@ const fetchUserProfile = async (uid) => {
     const db = getFirestore(app)
     const userData = await getDoc(doc(db, 'users', uid))
     if(userData.exists){
-      console.log(userData)
+      console.log(userData.data())
       console.log('user data agaya hai ' + userData.data())
       return userData.data()
     } else {

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { app } from "../firebase";
+import SigninGoogle from "./SigninGoogle";
 
 const Login = () => {
   sessionStorage.clear();
@@ -13,7 +14,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  console.log(state);
+  // console.log(state);
   useEffect(() => {
     if (state) {
       const autoFill = window.confirm(
@@ -39,7 +40,7 @@ const Login = () => {
           sessionStorage.setItem("sir_logged_in", "yes");
           navigate("/dashboard");
         } else {
-          sessionStorage.setItem("userId", localId);
+          localStorage.setItem("userId" + localId, localId);
           navigate(`/profile/${localId}`);
         }
       })
@@ -102,6 +103,7 @@ const Login = () => {
             Login
           </button>
         </form>
+        <SigninGoogle text='Login with Google' />
         <div className="absolute top-0 left-0 w-full h-full -z-10 bg-gradient-to-br from-purple-600/20 to-blue-500/20 rounded-2xl blur-2xl opacity-70"></div>
       </div>
     </div>
