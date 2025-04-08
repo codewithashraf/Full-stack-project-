@@ -9,11 +9,13 @@ function EditStudent() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  console.log(state?.[1].userUid)
+
   // Initial States
-  const [userId, setUserId] = useState(state?.[0]);
-  const [studentName, setStudentName] = useState(state?.[1].studentName);
-  const [phoneNo, setPhoneNo] = useState(state?.[1].studentNumber);
-  const [image, setImage] = useState(null);
+  const [userId, setUserId] = useState(state?.[1].userUid);
+  const [studentName, setStudentName] = useState(state?.[1].userName);
+  const [phoneNo, setPhoneNo] = useState(state?.[1].userPhoneNumber);
+  const [image, setImage] = useState(state?.[1].imageUrl);
 
   // Generate Cloudinary Signature
   const generateSignature = (publicId) => {
@@ -97,27 +99,28 @@ function EditStudent() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-10 p-6 bg-gray-500 text-black rounded-lg shadow-md">
-      <h1 className="text-2xl font-bold mb-4 text-center text-gray-700">
+    <div className="flex  items-center justify-center w-full h-[fit-content] min-h-[100vh] p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-indigo-100 shadow-lg">
+      <div className="w-full max-w-md p-8 bg-gray-900 backdrop-blur-[100px] rounded-lg shadow-xl">
+      <h1 className="text-2xl font-bold mb-4 text-center">
         Edit Student
       </h1>
       <form onSubmit={handleFileUpload} className="space-y-4">
         <div>
-          <label htmlFor="userId" className="block text-gray-600 mb-1">
+          <label htmlFor="userId" className="block font-medium mb-1">
             User ID
           </label>
           <input
             id="userId"
-            type="number"
-            placeholder="Enter user ID"
+            type="text"
             value={userId}
-            disabled
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            readOnly
+            onChange={(e) => setUserId(e.target.value)}
+            className="w-full px-4 py-2 sm:py-3 mb-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none max-sm:text-[.8rem] shadow-lg"
           />
         </div>
 
         <div>
-          <label htmlFor="student-name" className="block text-gray-600 mb-1">
+          <label htmlFor="student-name" className="block font-medium mb-1">
             Student Name
           </label>
           <input
@@ -126,12 +129,12 @@ function EditStudent() {
             placeholder="Enter student name"
             value={studentName}
             onChange={(e) => setStudentName(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 sm:py-3 mb-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none max-sm:text-[.8rem] shadow-lg capitalize"
           />
         </div>
 
         <div>
-          <label htmlFor="phone-number" className="block text-gray-600 mb-1">
+          <label htmlFor="phone-number" className="block font-medium mb-1">
             Phone Number
           </label>
           <input
@@ -140,29 +143,30 @@ function EditStudent() {
             placeholder="Enter phone number"
             value={phoneNo}
             onChange={(e) => setPhoneNo(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 sm:py-3 mb-3 bg-white/20 text-white placeholder-white rounded-lg focus:ring-2 focus:ring-indigo-100 outline-none max-sm:text-[.8rem] shadow-lg"
           />
         </div>
 
         <div>
-          <label htmlFor="file" className="block text-gray-600 mb-1">
+          <label htmlFor="file" className="block font-medium mb-1">
             Upload Image
           </label>
           <input
             id="file"
             type="file"
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 text-[.8rem] max-sm:text-[.7rem] border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
             onChange={handleFile}
           />
         </div>
 
         <button
           type="submit"
-          className="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full p-2 bg-blue-600 hover:bg-blue-200 hover:text-black  text-white text-lg max-sm:text-sm font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300"
         >
           Edit Student
         </button>
       </form>
+    </div>
     </div>
   );
 }

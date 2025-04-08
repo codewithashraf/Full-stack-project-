@@ -34,7 +34,7 @@ const Profile = () => {
   useEffect(() => {
 
       const userRef = doc(firestoreDb, 'users', userId);
-  
+      
       const unSubscribe = onSnapshot(userRef, (doc) => {
         if (doc.exists()) {
           setUser(doc.data());

@@ -18,12 +18,11 @@ export default function Dashboard() {
   const toggleSidebar = () => setIsSidebarCollapsed(!isSidebarCollapsed);
   const toggleMobileSidebar = () =>
     setIsMobileSidebarOpen(!isMobileSidebarOpen);
-  console.log(isMobileSidebarOpen);
   return (
     <div className="flex h-fit min-h-screen">
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 transform transition-transform duration-300 bg-gradient-to-br from-gray-900 to-indigo-800 border-r border-white/20 sm:p-4 p-3 z-50 w-[40%]  ${
+        className={`fixed inset-y-0 left-0 transform transition-transform duration-[300] bg-gradient-to-br from-gray-900 to-indigo-800 border-r border-white/20 sm:p-4 p-3 z-50 w-[40%]  ${
           isSidebarCollapsed ? "w-[60px]" : "md:w-[20%]"
         } ${
           isMobileSidebarOpen ? "translate-x-[0%]" : "-translate-x-[300%]"
@@ -145,6 +144,8 @@ export default function Dashboard() {
         >
           <FiMenu />
         </button>
+
+        {/* children hain saray */}
         <Outlet />
         {/* Right Main Area */}
         {/* <WelcomeDashboard /> */}

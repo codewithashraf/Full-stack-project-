@@ -113,7 +113,7 @@ const AllMaterials = () => {
   
   console.log(grade);
   return (
-    <div className="min-h-screen w-full text-white bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg rounded-xl flex items-center justify-center">
+    <div className="min-h-screen w-full text-white bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 shadow-lg rounded-xl flex items-center justify-center">
       <div className=" shadow-md rounded-lg p-8 max-w-md w-full">
         <h1 className="text-2xl sm:text-4xl font-bold text-indigo-100 text-center mb-6">
           All Learning Materials
@@ -129,7 +129,7 @@ const AllMaterials = () => {
           </label>
           <select
             id="gradeSelect"
-            className="block w-full text-sm py-1 px-1 text-gray-100 bg-gray-800 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500"
+            className="block w-full text-sm py-1 px-1 text-gray-100 bg-gray-800 border border-gray-300 rounded-lg  focus:ring-blue-500 focus:border-blue-500"
             onChange={(e) => setGrade(e.target.value)}
           >
             <option value="">All Grades</option>

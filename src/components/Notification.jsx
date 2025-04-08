@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { app } from "../firebase";
+import { app, firestoreDb } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import { collection, getFirestore, onSnapshot } from "firebase/firestore";
 
@@ -9,19 +9,17 @@ const Notification = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     // firestore database say data le rhe hain
-    const firestoreDb = getFirestore(app);
     const firestoreUsersRef = collection(firestoreDb, "users");
     const unSubscribe = onSnapshot(firestoreUsersRef, (snapShot) => {
       const pendingUsers = snapShot.docs
         .filter((doc) => doc.data().status === "pending")
         .map((doc) => doc.data());
-        const notification = Object.entries(pendingUsers)
-        console.log(notification)
-        setPendingData(notification)
+      const notification = Object.entries(pendingUsers);
+      console.log(notification);
+      setPendingData(notification);
     });
-    return () => unSubscribe()
+    return () => unSubscribe();
   }, []);
 
   const handleNotificationClick = (key) => {
@@ -45,32 +43,34 @@ const Notification = () => {
           pendingData.map(([key, val]) => (
             <div
               key={key}
-              className={`p-6 w-full h-auto rounded-lg shadow-lg cursor-pointer transition-all duration-300  transform ${
+              className={`p-6 max-sm:p-2 w-full h-auto rounded-lg shadow-lg cursor-pointer transition-all duration-500  transform ${
                 selectedNotification === key
                   ? "bg-gray-900 text-gray-200"
-                  : "bg-gradient-to-r from-indigo-600 to-blue-500"
+                  : "bg-white/20"
               } backdrop-blur-sm bg-opacity-50`}
               onClick={(e) => {
                 e.stopPropagation();
                 handleNotificationClick(key);
               }}
             >
-              <h3 className="font-semibold text-xl">
-                {val.userName} is waiting for approval.
-              </h3>
+              {selectedNotification !== key && (
+                <h3 className="font-semibold text-center text-xl max-sm:text-sm">
+                  {val.userName} is waiting for approval.
+                </h3>
+              )}
 
               {/* Detailed View on Click */}
               {selectedNotification === key && (
-                <div className="mt-4 p-4 bg-gray-800 bg-opacity-70 rounded-md shadow-xl">
+                <div className="p-4 bg-gray-800 bg-opacity-70 rounded-md shadow-xl">
                   <h4 className="font-bold text-lg text-indigo-300">
                     Notification Details:
                   </h4>
-                  <div className="w-full flex justify-between">
-                    <p className="text-gray-300 mt-2">
+                  <div className="w-full flex items-center justify-between">
+                    <p className="text-gray-300 max-sm:text-sm mt-2">
                       Details about {val.userName}'s request...
                     </p>
                     <button
-                      className="py-2 px-3 bg-indigo-400 font-bold rounded-xl"
+                      className="py-2 text-center px-3 w-fit h-fit max-sm:text-sm bg-gray-500 font-bold rounded-xl"
                       onClick={(e) => {
                         e.stopPropagation();
                         navigate("/dashboard/AddStudent", { state: val });

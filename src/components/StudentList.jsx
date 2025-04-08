@@ -1,5 +1,5 @@
 import  { useEffect, useState } from "react";
-import { app } from "../firebase";
+import { app, firestoreDb } from "../firebase";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CryptoJS from "crypto-js"; // Import crypto-js
@@ -66,41 +66,42 @@ function StudentList() {
   };
 
   const deleteData = async (key) => {
-    const db = getFirestore(app);
     // class say data delete karwa rhe hai
+    const publicID = studentData[key][1].publicId;
 
     const deleteRef = doc(
-      db,
+      firestoreDb,
       studentData[key][1].class,
       studentData[key][1].userUid
     );
     await deleteDoc(deleteRef)
-      .then((res) => console.log("data deleted"))
-      .catch((err) => console.log("data not deleted: " + err.message));
-
-    const publicID = studentData[key][1].publicId;
+    .then((res) => console.log("data deleted"))
+    .catch((err) => console.log("data not deleted: " + err.message));
+    
     if (publicID) {
       deleteImageFromCloudinary(publicID);
 
-      const studentRef = doc(db, "users", studentData[key][1].userUid);
-      updateDoc(studentRef, {
+      const studentRef = doc(firestoreDb, "users", studentData[key][1].userUid);
+      await updateDoc(studentRef, {
         status: "deleted",
       });
+
+      alert('Student successfully deleted ')
     } else {
       console.error("Public ID missing for student:", key);
     }
   };
 
   return (
-    <div className="w-full h-[fit-content] min-h-[100vh] ml-[0%] p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
-      <h1 className="text-4xl font-bold text-indigo-100 mb-8 text-center">
+    <div className="w-full h-[fit-content] min-h-[100vh] p-8 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white shadow-lg">
+      <h1 className="text-4xl max-sm:text-3xl font-bold text-indigo-100 mb-8 text-center">
         Student List
       </h1>
       {studentData !== null && studentData.length !== 0 ? (
         studentData.map(([key, val]) => (
           <div
             key={val.userUid}
-            className="mb-6 p-6 border border-gray-300 rounded-lg bg-gradient-to-br from-gray-600 to-indigo-800 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
+            className="mb-6 p-6 max-sm:p-4 border border-gray-300 rounded-lg bg-gradient-to-br from-gray-600 to-gray-900 shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out"
           >
             <div className="flex items-center">
               {val.imageUrl && (
@@ -111,17 +112,16 @@ function StudentList() {
                 />
               )}
               <div>
-                <h2 className="text-3xl capitalize font-semibold">
+                <h2 className="text-3xl max-sm:text-xl capitalize font-semibold">
                   {val.userName}
                 </h2>
-                <h3 className="text-xl">{val.phoneNumber}</h3>
-                <h3 className="text-xl mt-1"> {val.class}</h3>
+                <h3 className="text-xl max-sm:text-sm mt-1"> {val.class}</h3>
               </div>
             </div>
-            <div className="mt-6 flex justify-start space-x-6">
+            <div className="mt-6 max-sm:mt-2 flex justify-start space-x-6">
               <button
                 onClick={() => deleteData(key)}
-                className="px-5 py-3 bg-red-600 hover:bg-red-500 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                className="px-5 py-1 max-sm:py-1 max-sm:px-2 max-sm:text-[.9rem] bg-red-600 hover:bg-red-500 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-red-400"
               >
                 Delete
               </button>
@@ -129,7 +129,7 @@ function StudentList() {
                 onClick={() =>
                   navigate("/dashboard/EditStudent", { state: [key, val] })
                 }
-                className="px-5 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="px-5 py-3 max-sm:py-1 max-sm:px-2 max-sm:text-[.9rem] bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
               >
                 Edit
               </button>

@@ -1,19 +1,20 @@
 import React, { useState } from "react";
-import { getFirestore, doc, updateDoc, setDoc } from "firebase/firestore";
-import { app } from "../firebase";
+import { doc, updateDoc, setDoc } from "firebase/firestore";
+import { firestoreDb } from "../firebase";
 
 const DataCollectForm = ({ user }) => {
   
+  const [errors, setErrors] = useState({});
   const [formData, setFormData] = useState({
     legalName: "",
     fatherName: "",
+    age: '',
     phoneNumber: "",
     address: "",
     grade: "",
   });
+console.log(formData)
 
-  const [errors, setErrors] = useState({});
-  console.log(formData.grade === 'Grade 10')
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -36,22 +37,24 @@ const DataCollectForm = ({ user }) => {
     if (Object.keys(newErrors).length === 0) {
       // Form is valid, submit data
       console.log("Form Data Submitted: ", formData);
-      console.log(user.userUid);
+
       // firestore data update
-      const db = getFirestore(app);
-      const userRef = doc(db, "users", user.userUid);
+      const userRef = doc(firestoreDb, "users", user.userUid);
        updateDoc(userRef, {
         status: "pending",
-        class: formData.grade,
+        age: formData.age.trim(),
+        class: formData.grade.trim(),
       });
 
-      const classRef = doc(db, formData.grade, user.userUid)
+      // firestore new instance grade wise
+      const classRef = doc(firestoreDb, formData.grade, user.userUid)
       setDoc(classRef, {
-        name: formData.legalName,
-        fatherName: formData.fatherName,
-        address: formData.address,
-        phoneNumber: formData.phoneNumber,
-        class: formData.grade
+        name: formData.legalName.trim(),
+        fatherName: formData.fatherName.trim(),
+        address: formData.address.trim(),
+        phoneNumber: formData.phoneNumber.trim(),
+        class: formData.grade.trim(),
+        age: formData.age.trim(),
       })
     }
   };
@@ -88,6 +91,21 @@ const DataCollectForm = ({ user }) => {
             } rounded-md text-gray-900 focus:ring-2 focus:ring-white`}
           />
           {errors.fatherName && <p className="text-red-200 text-sm">{errors.fatherName}</p>}
+        </div>
+
+        {/* user ki age */}
+        <div>
+          <label className="block font-medium">Your Age</label>
+          <input
+            type="number"
+            name="age"
+            value={formData.age}
+            onChange={handleChange}
+            className={`w-full p-2 border ${
+              errors.fatherName ? "border-red-500" : "border-gray-300"
+            } rounded-md text-gray-900 focus:ring-2 focus:ring-white`}
+          />
+          {errors.age && <p className="text-red-200 text-sm">{errors.age}</p>}
         </div>
   
         {/* Phone Number */}
